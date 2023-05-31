@@ -1,6 +1,6 @@
 import * as nconf from "nconf";
 import * as fs from "node:fs/promises";
-import {type ConfigOptions, type SecretManager} from "types";
+import {type ConfigOptions, type SecretManager} from "./types.js";
 
 export class AppConfig {
     private static isLoaded = false;

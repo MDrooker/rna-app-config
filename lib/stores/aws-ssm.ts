@@ -1,4 +1,4 @@
-import {type SecretManager} from "../types";
+import {type SecretManager} from "../types.js";
 import {SSMClient, GetParameterCommand, PutParameterCommand, ParameterType} from "@aws-sdk/client-ssm";
 
 const createSSMClient = (region?: string) => new SSMClient({region});
