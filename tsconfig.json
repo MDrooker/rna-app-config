@@ -1,0 +1,17 @@
+{
+    "extends": "fastify-tsconfig",
+    "compilerOptions": {
+      "outDir": "dist",
+      "target": "es2018",
+      "lib": ["es2018"],
+      "baseUrl": "lib"
+    },
+    "include": [
+        "index.ts",
+        "lib/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+  }
