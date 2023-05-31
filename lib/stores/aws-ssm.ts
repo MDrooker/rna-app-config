@@ -1,12 +1,11 @@
-import { SecretManager } from "../types"
-import { SSMClient, GetParameterCommand, PutParameterCommand, ParameterType } from "@aws-sdk/client-ssm";
+import {type SecretManager} from "../types";
+import {SSMClient, GetParameterCommand, PutParameterCommand, ParameterType} from "@aws-sdk/client-ssm";
 
 const createSSMClient = (region?: string) => new SSMClient({region});
 
 export class AWSParameterStore implements SecretManager {
+    constructor(private readonly ssmClient: SSMClient = createSSMClient()) {}
 
-    constructor(private ssmClient: SSMClient = createSSMClient()) {}
-   
     async get(secretName: string): Promise<string> {
         const command = new GetParameterCommand({
             Name: secretName,
@@ -14,8 +13,9 @@ export class AWSParameterStore implements SecretManager {
         });
         const secret = await this.ssmClient.send(command);
         if (!secret.Parameter?.Value) {
-            throw new Error(`Secret value is empty`);
+            throw new Error("Secret value is empty");
         }
+
         return secret.Parameter.Value;
     }
 
@@ -30,7 +30,7 @@ export class AWSParameterStore implements SecretManager {
             await this.ssmClient.send(command);
         } catch (err: unknown) {
             const message = "Failed to set secret";
-            throw new Error(err instanceof Error ? `${message}: ${err.message}` : message)
+            throw new Error(err instanceof Error ? `${message}: ${err.message}` : message);
         }
     }
 }

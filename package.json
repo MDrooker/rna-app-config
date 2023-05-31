@@ -7,7 +7,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"TODO\" && exit 1",
-    "build": "rm -rf ./dist && tsc"
+    "build": "rm -rf ./dist && tsc",
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint . --fix"
   },
   "author": "",
   "license": "Apache-2.0",
@@ -29,6 +31,9 @@
   "devDependencies": {
     "@types/nconf": "^0.10.3",
     "@types/node": "^20.2.3",
+    "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "@typescript-eslint/parser": "^5.59.8",
+    "eslint": "^8.41.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   }

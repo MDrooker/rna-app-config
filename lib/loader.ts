@@ -1,6 +1,6 @@
 import * as nconf from "nconf";
 import * as fs from "node:fs/promises";
-import { ConfigOptions, SecretManager } from "types";
+import {type ConfigOptions, type SecretManager} from "types";
 
 export class AppConfig {
     private static isLoaded = false;
@@ -10,10 +10,11 @@ export class AppConfig {
     private static async maybeLoadFromFile<ConfigT>(filePath: string): Promise<ConfigT | undefined> {
         let raw: string;
         try {
-            raw = await fs.readFile(filePath, 'utf8');
+            raw = await fs.readFile(filePath, "utf8");
         } catch (_err: unknown) {
             return;
         }
+
         return JSON.parse(raw);
     }
 
@@ -21,10 +22,11 @@ export class AppConfig {
         let raw: string;
         try {
             raw = await manager.get(name);
-        } catch(err: unknown) {
-            const msg = 'Failed to load remote config';
-            throw new Error(err instanceof Error ? `${msg}: ${err.message}`: msg);
+        } catch (err: unknown) {
+            const msg = "Failed to load remote config";
+            throw new Error(err instanceof Error ? `${msg}: ${err.message}` : msg);
         }
+
         return JSON.parse(raw);
     }
 
@@ -46,7 +48,7 @@ export class AppConfig {
         }
 
         let config;
-        const { filePath, secretManager, secretName, requiredVars } = options;
+        const {filePath, secretManager, secretName, requiredVars} = options;
 
         if (filePath) {
             config = await AppConfig.maybeLoadFromFile(filePath);
@@ -57,7 +59,7 @@ export class AppConfig {
         }
 
         if (!config) {
-            throw new Error('Unable to load config');
+            throw new Error("Unable to load config");
         }
 
         nconf.env().defaults(config);
@@ -68,30 +70,35 @@ export class AppConfig {
 
     static get<ConfigT>(name?: string): ConfigT {
         if (!AppConfig.isLoaded) {
-            throw new Error('Config not loaded');
+            throw new Error("Config not loaded");
         }
+
         return nconf.get(name);
     }
 
     static getNumber(name: string): number {
         if (!AppConfig.isLoaded) {
-            throw new Error('Config not loaded');
+            throw new Error("Config not loaded");
         }
+
         const val = nconf.get(name);
         if (isNaN(val)) {
             return NaN;
         }
+
         return Number(val);
     }
 
     static getBoolean(name: string): boolean {
         if (!AppConfig.isLoaded) {
-            throw new Error('Config not loaded');
+            throw new Error("Config not loaded");
         }
+
         const val = nconf.get(name);
-        if (typeof val === 'string') {
-            return ['true', 'yes'].includes(val.toLocaleLowerCase())
+        if (typeof val === "string") {
+            return ["true", "yes"].includes(val.toLocaleLowerCase());
         }
+
         return false;
     }
 }
