@@ -1,6 +1,6 @@
 import {AppConfig} from "./lib/loader";
 import {AWSParameterStore} from "./lib/stores/aws-ssm";
-import type {ConfigOptions, SecretManager} from "./lib/loader";
+import type {ConfigOptions, SecretManager} from "./lib/types";
 
 export {
     AppConfig,
