@@ -1,6 +1,6 @@
 {
   "name": "@mdrooker/rna-app-config",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A library for loading application config",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
