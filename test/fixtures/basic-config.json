@@ -1,0 +1,13 @@
+{
+	"name": {
+		"system": "test",
+		"product": "rna-app-config"
+	},
+	"deep": {
+		"first": {
+			"second": {
+				"name": "some_default"
+			}
+		}
+	}
+}

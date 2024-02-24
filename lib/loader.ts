@@ -11,7 +11,7 @@ export class AppConfig {
         let raw: string;
         try {
             raw = await fs.readFile(filePath, "utf8");
-        } catch (_err: unknown) {
+        } catch {
             return;
         }
 
@@ -28,18 +28,6 @@ export class AppConfig {
         }
 
         return JSON.parse(raw);
-    }
-
-    private static validateEnv(requiredVars: string[] | undefined) {
-        if (!Array.isArray(requiredVars) || requiredVars.length < 1) {
-            return;
-        }
-
-        for (const variable of requiredVars) {
-            if (!nconf.get(variable)) {
-                throw new Error(`Missing required variable: ${variable}`);
-            }
-        }
     }
 
     static async load(options: ConfigOptions): Promise<void> {
@@ -62,9 +50,9 @@ export class AppConfig {
             throw new Error("Unable to load config");
         }
 
-        nconf.env().defaults(config);
-
-        AppConfig.validateEnv(requiredVars);
+        nconf.env("__");
+        nconf.defaults(config);
+        nconf.required(requiredVars ?? []);
         AppConfig.isLoaded = true;
     }
 
