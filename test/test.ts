@@ -15,7 +15,7 @@ type BasicConfig = {
 	}
 };
 
-test("loads config", async (t) => {
+test("loads config from file", async (t) => {
     const deepName = "foooooo";
     process.env.deep__first__second__name = deepName;
     await AppConfig.load({
