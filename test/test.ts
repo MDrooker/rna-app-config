@@ -20,6 +20,7 @@ test("loads config from file", async (t) => {
     process.env.deep__first__second__name = deepName;
     await AppConfig.load({
         filePath: "./test/fixtures/basic-config.json",
+				requiredVars: ['name'],
     });
     const config = AppConfig.get<BasicConfig>();
     t.deepEqual(config.name, {
