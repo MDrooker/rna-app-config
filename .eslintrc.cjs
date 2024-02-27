@@ -40,6 +40,14 @@ module.exports = {
             {
                 "allow": ["constructors"]
             }
-        ]
+        ],
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+              "argsIgnorePattern": "^_",
+              "varsIgnorePattern": "^_",
+              "caughtErrorsIgnorePattern": "^_"
+            }
+        ],
     }
 };
